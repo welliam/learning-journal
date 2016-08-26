@@ -1,0 +1,78 @@
+body {
+    color: #555555;
+    max-width: 30em;
+    margin: 0 auto;
+    font-family: serif;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 1px #999999 solid;
+}
+
+h1 a {
+    text-decoration: none;
+}
+
+a {
+    color: #555555;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+form {
+    margin: 1em;
+}
+
+input[type="text"] {
+    width: 100%;
+    font-size: 1em;
+}
+
+textarea {
+    width: 25em;
+    height: 10em;
+    width: 100%;
+    font-family: serif;
+    border: 3px solid #999999;
+    resize: vertical;
+}
+
+input[type="button"], input[type="submit"] {
+    padding: 0.3em;
+    border-radius: 1em;
+    min-width: 7em;
+    background-color: white;
+}
+
+form * {
+    margin-top: 0.5em;
+    display: block;
+}
+
+#about {
+    margin: 1em;
+}
+
+#input {
+    text-align: center;
+}
+
+.entry-timestamp {
+    margin-bottom: 1em;
+    color: #999999
+}
+
+.entry * {
+    margin-bottom: 1em;
+}
+
+.entry section {
+    margin-left: 1em;
+}
+
+.entry-body {
+    white-space: pre-line;
+}

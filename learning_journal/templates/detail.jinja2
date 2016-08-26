@@ -1,0 +1,13 @@
+{% extends "wrapper.jinja2" %}
+
+{% block content %}
+
+  <article class="entry">
+    <h2 class="entry-title">{{ title }}</h2>
+    <section class="entry-timestamp">Posted on {{ date }}.</section>
+    <section class="entry-body">{{ body }}</section>
+    <a href="/journal/{{ id }}/edit-entry">Edit</a>
+    <a href="/new-entry">New</a>
+  </article>
+
+{% endblock %}

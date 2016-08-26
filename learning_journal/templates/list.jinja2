@@ -1,0 +1,23 @@
+{% extends "wrapper.jinja2" %}
+
+{% block content %}
+
+  <section id="about">
+    This is a website for logging my learning process through Python
+    401.
+  </section>
+
+  <a href="new-entry">New</a>
+
+  <section id="entries">
+    {% for article in articles %}
+      <article class="entry">
+        <h2 class="entry-title">
+          <a href="/journal/{{ article.id }}">{{ article.title }}</a>
+        </h2>
+        <section class="entry-timestamp">{{ article.date }}</section>
+      </article>
+    {% endfor %}
+  </section>
+
+{% endblock %}

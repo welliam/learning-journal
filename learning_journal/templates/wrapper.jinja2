@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Learning Journal</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{{ request.static_url('learning_journal:static/style.css') }}" />
+  </head>
+
+  <body>
+    <header><h1><a href="/">Learning Journal</a></h1></header>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>
