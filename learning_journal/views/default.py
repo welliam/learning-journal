@@ -3,7 +3,7 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.exceptions import HTTPNotFound
 from sqlalchemy.exc import DBAPIError
-from ..models import MyModel
+from ..models import Entry
 from .articles import articles
 
 HERE = os.path.dirname(__file__)
@@ -18,6 +18,7 @@ def get_article_by_id(articles, id):
 
 @view_config(route_name='list', renderer="templates/list.jinja2")
 def list_view(request):
+    request.dbsession.query(Entry).all()
     return {
         'articles': articles
     }
@@ -46,8 +47,8 @@ def update_view(request):
 #     except DBAPIError:
 #         return Response(db_err_msg, content_type='text/plain', status=500)
 #     return {'one': one, 'project': 'learning_journal'}
-#
-#
+
+
 # @view_config(route_name="edit", renderer="../templates/edit-model.jinja2")
 # def edit_view(request):
 #     return {"data": {"name": "A new form"}}
