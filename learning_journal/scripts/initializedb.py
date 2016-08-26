@@ -1,7 +1,7 @@
 import os
 import sys
 import transaction
-from ..articles import articles
+from .articles import articles
 
 from pyramid.paster import (
     get_appsettings,
@@ -37,7 +37,6 @@ def main(argv=sys.argv):
     engine = get_engine(settings)
     Base.metadata.create_all(engine)
 
-    ## Not really needed:
     session_factory = get_session_factory(engine)
 
     with transaction.manager:
@@ -49,6 +48,3 @@ def main(argv=sys.argv):
                 date=article['date'],
                 body=article['body']
             ))
-
-        model = EntryModel(name='one', value=1)
-        dbsession.add(model)

@@ -7,7 +7,7 @@
     401.
   </section>
 
-  <a href="new-entry">New</a>
+  <a href="{{ request.route_url('create') }}">New</a>
 
   <section id="entries">
     {% for article in articles %}

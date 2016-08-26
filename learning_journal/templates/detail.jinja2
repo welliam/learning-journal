@@ -3,11 +3,11 @@
 {% block content %}
 
   <article class="entry">
-    <h2 class="entry-title">{{ title }}</h2>
-    <section class="entry-timestamp">Posted on {{ date }}.</section>
-    <section class="entry-body">{{ body }}</section>
-    <a href="{{ request.route_url('edit', id=id) }}/edit-entry">Edit</a>
-    <a href="/new-entry">New</a>
+    <h2 class="entry-title">{{ article.title }}</h2>
+    <section class="entry-timestamp">Posted on {{ article.date }}.</section>
+    <section class="entry-body">{{ article.body }}</section>
+    <a href="{{ request.route_url('update', id=article.id) }}">Edit</a>
+    <a href="{{ request.route_url('create') }}">New</a>
   </article>
 
 {% endblock %}

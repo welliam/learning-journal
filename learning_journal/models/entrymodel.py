@@ -7,10 +7,10 @@ from sqlalchemy import (
 from .meta import Base
 
 
-class Entry(Base):
+class EntryModel(Base):
     """A model for journal entries."""
-    __tablename__ = 'models'
+    __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
     title = Column(UnicodeText)
     body = Column(UnicodeText)
-    creation_date = Column(UnicodeText)
+    date = Column(UnicodeText)
