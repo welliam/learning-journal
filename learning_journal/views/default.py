@@ -25,12 +25,19 @@ def list_view(request):
 @view_config(route_name='detail', renderer="templates/detail.jinja2")
 @view_config(route_name='update', renderer="templates/update.jinja2")
 def detail_view(request):
-    return {
-        'article': get_article_by_id(
+    if request.method == "POST":
+        article = {
+            'title': request.POST['title'],
+            'date': request.POST['date'],
+            'body': request.POST['body'],
+            'id': request.matchdict['id']
+        }
+    else:
+        article = get_article_by_id(
             request.dbsession,
             int(request.matchdict['id'])
         )
-    }
+    return {'article': article}
 
 
 @view_config(route_name='create', renderer="templates/new.jinja2")
