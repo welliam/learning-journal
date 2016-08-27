@@ -52,6 +52,7 @@ def new_session(sqlengine, request):
 
 
 def test_model_gets_added(new_session):
+    """Test that a model gets added to the database."""
     assert len(new_session.query(EntryModel).all()) == 0
     model = EntryModel(title="a", body="b", date="never")
     new_session.add(model)
@@ -60,7 +61,7 @@ def test_model_gets_added(new_session):
 
 
 def test_model_saves_title(new_session):
-    assert len(new_session.query(EntryModel).all()) == 0
+    """Test that a model's title gets saved correctly."""
     model = EntryModel(title="a", body="b", date="never")
     new_session.add(model)
     new_session.flush()
@@ -69,6 +70,7 @@ def test_model_saves_title(new_session):
 
 @pytest.mark.parametrize('titles', TITLES)
 def test_model_saves_titles(new_session, titles):
+    """Test that all titles are saved when added in sequence."""
     for title in titles:
         new_session.add(EntryModel(title=title, body="b", date="never"))
     new_session.flush()
