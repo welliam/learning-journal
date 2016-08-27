@@ -41,7 +41,7 @@ def new_view(request):
             date=datetime.now().strftime('%B %w'),
             body=request.POST['body']
         ))
-        raise HTTPFound(location='/')
+        return HTTPFound(location='/')
     return {}
 
 
