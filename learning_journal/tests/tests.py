@@ -15,7 +15,8 @@ TITLES = [
     'Day 8',
     'Day 9',
     'Day -3',
-    'Day Foo'
+    'Day Foo',
+    ''
 ]
 
 
