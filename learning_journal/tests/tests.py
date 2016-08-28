@@ -1,15 +1,9 @@
 import pytest
-import transaction
 
 from pyramid import testing
 
-from ..models import (
-    EntryModel,
-    get_engine,
-    get_session_factory,
-    get_tm_session,
-)
-from ..models.meta import Base
+from ..models import EntryModel
+
 
 TITLES = [
     'Day 8',
@@ -20,35 +14,17 @@ TITLES = [
 ]
 
 
-@pytest.fixture(scope="session")
-def sqlengine(request):
-    config = testing.setUp(settings={
-        'sqlalchemy.url': 'sqlite:///:memory:'
-    })
-    config.include("..models")
-    settings = config.get_settings()
-    engine = get_engine(settings)
-    Base.metadata.create_all(engine)
-
-    def teardown():
-        testing.tearDown()
-        transaction.abort()
-        Base.metadata.drop_all(engine)
-
-    request.addfinalizer(teardown)
-    return engine
+INFO_KEYS = ['title', 'date', 'id']
 
 
-@pytest.fixture(scope="function")
-def new_session(sqlengine, request):
-    session_factory = get_session_factory(sqlengine)
-    session = get_tm_session(session_factory, transaction.manager)
-
-    def teardown():
-        transaction.abort()
-
-    request.addfinalizer(teardown)
-    return session
+WRAPPED_PATHS = [
+    '/',
+    '/journal/1',
+    '/journal/2',
+    '/journal/1/edit-entry',
+    '/journal/2/edit-entry',
+    '/new-entry'
+]
 
 
 def test_model_gets_added(new_session):
@@ -78,16 +54,120 @@ def test_model_saves_titles(new_session, titles):
     assert set(titles) == set(results)
 
 
-# def dummy_http_request(new_session):
-#     return testing.DummyRequest()
-#
-#
-# def test_my_view(new_session):
-#     from ..views.default import my_view
-#
-#     new_session.add(EntryModel(name="one", value=1))
-#     new_session.flush()
-#
-#     http_request = dummy_request(new_session)
-#     result = my_view(http_request)
-#     assert result["one"].name == "one"
+def test_list_view(request_with_model):
+    from ..views.default import list_view
+    result = list_view(request_with_model)
+    assert result['articles'][0].title == 'title'
+
+
+@pytest.mark.parametrize('key', INFO_KEYS)
+def test_detail_view_has_key(key, request_with_model):
+    from ..views.default import detail_view
+    request_with_model.matchdict = {'id': 1}
+    info = detail_view(request_with_model)
+    assert hasattr(info['article'], key)
+
+
+@pytest.mark.parametrize('key', INFO_KEYS)
+def test_list_view_articles_have_key(key, request_with_model):
+    from ..views.default import list_view
+    info = list_view(request_with_model)
+    assert all(map(lambda a: hasattr(a, key), info['articles']))
+
+
+# # wrapper
+
+
+# @pytest.mark.parametrize('path', WRAPPED_PATHS)
+# def test_layout_root_title(testapp, path):
+#     response = testapp.get(path, status=200)
+#     assert b'Learning Journal' in response.body
+
+
+# @pytest.mark.parametrize('path', WRAPPED_PATHS)
+# def test_layout_root_css(testapp, path):
+#     response = testapp.get(path, status=200)
+#     assert b'/static/style.css' in response.body
+
+
+# @pytest.mark.parametrize('path', WRAPPED_PATHS)
+# def test_layout_root_doctype(testapp, path):
+#     response = testapp.get(path, status=200)
+#     assert b'<!DOCTYPE html>' in response.body
+
+
+# # list
+
+
+# def test_layout_list_about_section(testapp):
+#     response = testapp.get('/', status=200)
+#     assert b'<section id="about">' in response.body
+
+
+# def test_layout_list_sections(testapp):
+#     response = testapp.get('/', status=200)
+#     assert b'<section id="entries">' in response.body
+
+
+# def test_layout_list_new_link(testapp):
+#     response = testapp.get('/', status=200)
+#     assert b'href="new-entry"' in response.body
+
+
+# # detail
+
+
+# def test_layout_detail_article(testapp):
+#     response = testapp.get('/journal/1', status=200)
+#     assert b'</article>' in response.body
+
+
+# def test_layout_detail_posted_on(testapp):
+#     response = testapp.get('/journal/1', status=200)
+#     assert b'Posted on' in response.body
+
+
+# def test_layout_detail_edit_link(testapp):
+#     response = testapp.get('/journal/1', status=200)
+#     assert b'/edit-entry' in response.body
+
+
+# def test_layout_detail_new_link(testapp):
+#     response = testapp.get('/journal/1', status=200)
+#     assert b'href="/new-entry"' in response.body
+
+
+# # new
+
+
+# def test_layout_new_form(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'</form>' in response.body
+
+
+# def test_layout_new_inputs(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'input' in response.body
+
+
+# def test_layout_new_method_post(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'method="POST"' in response.body
+
+
+# # update
+
+
+# def test_layout_update_form(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'</form>' in response.body
+
+
+# def test_layout_update_inputs(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'input' in response.body
+
+
+# def test_layout_update_method_post(testapp):
+#     response = testapp.get('/journal/1/edit-entry', status=200)
+#     assert b'method="POST"' in response.body
