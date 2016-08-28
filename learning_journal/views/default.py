@@ -1,10 +1,8 @@
 import os
 from datetime import datetime
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.exceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPFound
-from sqlalchemy.exc import DBAPIError
 from ..models import EntryModel
 
 HERE = os.path.dirname(__file__)
