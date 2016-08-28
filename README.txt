@@ -1,14 +1,5 @@
-learning_journal README
+Learning Journal
 ==================
 
-Getting Started
----------------
-
-- cd <directory containing this file>
-
-- $VENV/bin/pip install -e .
-
-- $VENV/bin/initialize_learning_journal_db development.ini
-
-- $VENV/bin/pserve development.ini
-
+A website which allows for viewing and editing entries in a learning
+journal, a blogging website specifically for logging daily learning.
