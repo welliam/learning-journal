@@ -55,6 +55,7 @@ def test_model_saves_titles(new_session, titles):
 
 
 def test_list_view(request_with_model):
+    """Test list view."""
     from ..views.default import list_view
     result = list_view(request_with_model)
     assert result['articles'][0].title == 'title'
@@ -62,6 +63,7 @@ def test_list_view(request_with_model):
 
 @pytest.mark.parametrize('key', INFO_KEYS)
 def test_detail_view_has_key(key, request_with_model):
+    """Test detail view returns dict with INFO_KEYS."""
     from ..views.default import detail_view
     request_with_model.matchdict = {'id': 1}
     info = detail_view(request_with_model)
@@ -70,6 +72,7 @@ def test_detail_view_has_key(key, request_with_model):
 
 @pytest.mark.parametrize('key', INFO_KEYS)
 def test_list_view_articles_have_key(key, request_with_model):
+    """Test list view returns dict with INFO_KEYS."""
     from ..views.default import list_view
     info = list_view(request_with_model)
     assert all(map(lambda a: hasattr(a, key), info['articles']))
