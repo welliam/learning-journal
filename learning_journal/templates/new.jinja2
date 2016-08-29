@@ -2,7 +2,7 @@
 
 {% block content %}
   <section id="input">
-    <form action="{{ request.route_url('create') }}" method="POST">
+    <form action="{{ request.route_path('create') }}" method="POST">
       <input type="text" name="title" placeholder="Title">
       <textarea name="body" placeholder="Body"></textarea>
       <input type="submit" value="Save">
