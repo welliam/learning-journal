@@ -7,9 +7,19 @@
     <link rel="stylesheet" href="{{ request.static_path('learning_journal:static/style.css') }}" />
   </head>
 
+
   <body>
+    
     <header><h1><a href="/">Learning Journal</a></h1></header>
 
     {% block content %}{% endblock %}
+
+    <div id="admin">
+      {% if request.authenticated_userid %}
+        <a href="{{ request.route_path('logout')}}">log out</a>
+      {% else %}
+        <a href="{{ request.route_path('login')}}">log in</a>
+      {% endif %}
+    </div>
   </body>
 </html>
