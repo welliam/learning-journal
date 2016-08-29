@@ -36,6 +36,7 @@ def main(argv=sys.argv):
     settings['sqlalchemy.url'] = os.environ['DATABASE_URL']
 
     engine = get_engine(settings)
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
     session_factory = get_session_factory(engine)
