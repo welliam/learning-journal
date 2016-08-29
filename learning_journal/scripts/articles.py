@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 articles = [{
     'title': 'Day 8',
     'date': 'August 17',
