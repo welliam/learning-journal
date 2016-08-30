@@ -1,3 +1,4 @@
+import os
 import pytest
 import transaction
 from pyramid import testing
@@ -14,7 +15,7 @@ from ..models.meta import Base
 @pytest.fixture(scope="session")
 def sqlengine(request):
     config = testing.setUp(settings={
-        'sqlalchemy.url': 'sqlite:///:memory:'
+        'sqlalchemy.url': os.environ["DATABASE_URL"]
     })
     config.include("..models")
     settings = config.get_settings()
