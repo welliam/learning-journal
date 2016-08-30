@@ -62,7 +62,7 @@ def new_view(request):
     if request.method == "POST":
         request.dbsession.add(EntryModel(
             title=request.POST['title'],
-            date=datetime.now().strftime('%B %w'),
+            date=datetime.now().strftime('%B %d'),
             body=request.POST['body']
         ))
         return HTTPFound(location='/')
