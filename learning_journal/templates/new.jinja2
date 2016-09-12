@@ -6,6 +6,9 @@
       <input type="text" name="title" placeholder="Title">
       <textarea name="body" placeholder="Body"></textarea>
       <input type="submit" value="Save">
+      <input type="hidden"
+             name="csrf_token"
+             value="{{ request.session.get_csrf_token() }}">
     </form>
   </section>
 {% endblock %}

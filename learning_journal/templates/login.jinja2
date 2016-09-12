@@ -6,6 +6,9 @@
       <input type="text" name="username" placeholder="Username">
       <input type="password" name="password" placeholder="Password">
       <input type="submit" value="Submit">
+      <input type="hidden"
+             name="csrf_token"
+             value="{{ request.session.get_csrf_token() }}">
     </form>
   </section>
 {% endblock %}

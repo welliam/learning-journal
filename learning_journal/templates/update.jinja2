@@ -7,6 +7,9 @@
     <input type="hidden" name="date" value="{{ article.date }}">
     <textarea name="body" placeholder="Body">{{ article.body }}</textarea>
     <input type="submit" value="View">
+    <input type="hidden"
+           name="csrf_token"
+           value="{{ request.session.get_csrf_token() }}">
   </form>
 </section>
 {% endblock %}
