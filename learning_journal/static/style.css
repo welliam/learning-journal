@@ -26,7 +26,7 @@ form {
     margin: 1em;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
     width: 100%;
     font-size: 1em;
 }
@@ -58,6 +58,10 @@ form * {
 
 #input {
     text-align: center;
+}
+
+#admin {
+    text-align: right;
 }
 
 .entry-timestamp {

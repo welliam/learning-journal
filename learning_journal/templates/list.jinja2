@@ -7,7 +7,9 @@
     401.
   </section>
 
-  <a href="{{ request.route_path('create') }}">New</a>
+  {% if request.authenticated_userid %}
+    <a href="{{ request.route_path('create') }}">New</a>
+  {% endif %}
 
   <section id="entries">
     {% for article in articles %}
