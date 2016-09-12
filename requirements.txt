@@ -1,7 +1,6 @@
 beautifulsoup4==4.5.1
 coverage==4.2
 Jinja2==2.8
-learning-journal==0.0
 Mako==1.0.4
 MarkupSafe==0.23
 PasteDeploy==1.5.2

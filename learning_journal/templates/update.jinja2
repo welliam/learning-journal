@@ -1,12 +1,12 @@
-{% extends "wrapper.jinja2" %}
+{% extends "detail.jinja2" %}
 
-{% block content %}
+{% block edit %}
 <section id="input">
-  <form action="#" method="POST">
-    <input type="text" name="title" value="{{ title }}">
-    <input type="hidden" name="date" value="{{ date }}">
-    <textarea name="body" placeholder="Body">{{ body }}</textarea>
-    <input type="submit" value="Save" disabled="true">
+  <form action="{{ request.route_path('update', id=article.id) }}" method="POST">
+    <input type="text" name="title" value="{{ article.title }}" placeholder="Title">
+    <input type="hidden" name="date" value="{{ article.date }}">
+    <textarea name="body" placeholder="Body">{{ article.body }}</textarea>
+    <input type="submit" value="Save">
   </form>
 </section>
 {% endblock %}
